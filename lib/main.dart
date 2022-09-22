@@ -28,23 +28,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final textControler = TextEditingController();
+
+  String definidoValue = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // Valor
-          Text("Valor definido:"),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Valor
+            Text("Valor definido: $definidoValue"),
 
-          // Campo
-          TextField(),
+            // Campo
+            TextField(
+              controller: textControler,
+            ),
 
-          // Botão
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Confirmar'),
-          ),
-        ],
+            // Botão
+            ElevatedButton(
+              onPressed: () {
+                String value = textControler.text;
+
+                setState(() {
+                  definidoValue = value;
+                });
+              },
+              child: Text('Confirmar'),
+            ),
+          ],
+        ),
       ),
     );
   }
