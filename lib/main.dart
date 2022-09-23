@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
             GetBuilder<ValueController>(
               init: valueController,
               builder: (ctrl) {
-                return Text("Valor definido: $ctrl.definidoValue");
+                return Text("Valor definido: ${ctrl.definidoValue}");
               },
             ),
 
@@ -51,14 +51,21 @@ class HomePage extends StatelessWidget {
             ),
 
             // Botão
-            ElevatedButton(
-              onPressed: () {
-                String value = textControler.text;
+            GetBuilder<ValueController>(
+              init: valueController,
+              builder: (ctrl) {
+                return ctrl.isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: () {
+                        String value = textControler.text;
 
-                valueController.setValue(value);
-              },
-              child: Text('Confirmar'),
-            ),
+                        valueController.setValue(value);
+                      },
+                      child: const Text('Confirmar'),
+                    );
+                  },
+                ),
           ],
         ),
       ),
