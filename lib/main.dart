@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getintro/value_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,18 +22,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
 
   final textControler = TextEditingController();
 
-  String definidoValue = "";
+  final valueController = ValueController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +38,12 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Valor
-            Text("Valor definido: $definidoValue"),
+            GetBuilder<ValueController>(
+              init: valueController,
+              builder: (ctrl) {
+                return Text("Valor definido: $ctrl.definidoValue");
+              },
+            ),
 
             // Campo
             TextField(
@@ -54,9 +55,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 String value = textControler.text;
 
-                setState(() {
-                  definidoValue = value;
-                });
+                valueController.setValue(value);
               },
               child: Text('Confirmar'),
             ),
