@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getintro/user_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Relatividade With Object',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,28 +28,35 @@ class HomePage extends StatelessWidget {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
 
-  TextStyle commonStyle() => const TextStyle(
-    fontSize: 17,
-    fontWeight: FontWeight.w500,
-  );
+  TextStyle commonStyle() =>
+      const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+      );
+
+  final userController = UserController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Relatividade with Object",),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Nome: ',
+            Obx(() => Text(
+                'Nome: ${userController.user.value.name}',
+                style: commonStyle(),
+            )),
+            Obx(() => Text(
+              'idade: ${userController.user.value.age}',
               style: commonStyle(),
-            ),
-            Text(
-              'idade: ',
-              style: commonStyle(),
-            ),
+            )),
 
             const Divider(
               thickness: 1.5,
@@ -69,7 +79,9 @@ class HomePage extends StatelessWidget {
 
                 // Botão para salvar o nome
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    userController.setUserName(nameController.text);
+                  },
                   child: const Text('Salvar'),
                 ),
               ],
@@ -93,7 +105,9 @@ class HomePage extends StatelessWidget {
 
                 // Botão para salvar a idade
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    userController.setUserAge(int.parse(ageController.text));
+                  },
                   child: const Text('Salvar'),
                 ),
               ],
