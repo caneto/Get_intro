@@ -38,10 +38,9 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Valor
-            GetX<ValueController>(
-              init: valueController,
-              builder: (ctrl) {
-                return Text("Valor definido: ${ctrl.definidoValue}");
+            Obx(
+              () {
+                return Text("Valor definido: ${valueController.definidoValue}");
               },
             ),
 
