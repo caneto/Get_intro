@@ -5,7 +5,8 @@ Funcionalidades de Observação usando GetX
 
  (Main) = Projeto Inicial  </br>
  (With-Obx) - Versão com Obx </br>
- (Relatividade-With-Obj) - Versão detalhada da Relatividade com o Obx.
+ (Relatividade-With-Obj) - Versão detalhada da Relatividade com o Obx.</br>
+ (Injeção-de-dependencias) - Versão com Injeção de dependencias.
 
 ### Itens necessarios.
 
