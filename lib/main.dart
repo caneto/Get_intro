@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getintro/user_controller.dart';
 
 void main() {
+
+  //Get.put<UserController>(UserController());
+  Get.lazyPut<UserController>(() => UserController());
+
   runApp(const MyApp());
 }
 
@@ -11,7 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Introdução a Injeção GetX',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -26,7 +32,7 @@ class HomePage extends StatelessWidget {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
 
-  final userController = UserController();
+  final userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +100,7 @@ class HomePage extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return const DataScreen();
+                      return DataScreen();
                     },
                   ),
                 );
@@ -109,7 +115,7 @@ class HomePage extends StatelessWidget {
 }
 
 class DataScreen extends StatelessWidget {
-  const DataScreen({
+  DataScreen({
     Key? key,
   }) : super(key: key);
 
@@ -117,6 +123,8 @@ class DataScreen extends StatelessWidget {
     fontSize: 20,
     fontWeight: FontWeight.w700,
   );
+
+  final UserController controller = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -129,16 +137,16 @@ class DataScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Apresentação do nome
-            Text(
-              'Nome: ',
+            Obx(() => Text(
+              'Nome: ${controller.user.value.name}',
               style: commonStyle(),
-            ),
+            )),
 
             // Apresentação da idade
-            Text(
-              'idade: ',
+            Obx(() => Text(
+              'idade: ${controller.user.value.age}',
               style: commonStyle(),
-            ),
+            )),
           ],
         ),
       ),
