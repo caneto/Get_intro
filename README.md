@@ -1,4 +1,4 @@
-#Get Intro - Introdução ao GetX com Flutter/Dart
+# Get Intro - Introdução ao GetX com Flutter/Dart
 Funcionalidades de Observação usando GetX 
 
 ## Tem varias branch (Para demonstrar cada tipo)
